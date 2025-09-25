@@ -61,6 +61,10 @@ app.post('/send-email', async (req, res) => {
   }
 });
 
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Lyssnar på port ${port}`));
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
