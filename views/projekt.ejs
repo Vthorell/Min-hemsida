@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om-mig</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+  <%- include('partials/header') %>
+
+  <main>
+  <a href="/"><h1 class="namn">Viggo Thorell</h1></a>
+
+  <section class="projekt-section">
+    <h2 class="projekt-title">Projekt</h2>
+    <hr class="projekt-divider">
+
+    <div class="projekt-container">
+      <div class="projekt"><img src="images/capstore.webp" alt="Capstore"></div>
+      <div class="projekt"><img src="images/epic.webp" alt="Epic"></div>
+      <div class="projekt"><img src="images/fashion.webp" alt="Freaky"></div>
+    </div>
+  </section>
+</main>
+
+
+  <%- include('partials/footer') %>
+
+  <script src="/javascripts/script.js"></script>
+</body>
+</html>

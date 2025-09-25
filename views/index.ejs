@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hem</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+  <%- include('partials/header') %>
+
+  <main>
+    <a href="/"><h1 class="namn">Viggo Thorell</h1></a>
+  </main>
+
+  <div class="sign-container">
+  <img class="sign" src="/images/sign.png" alt="ai bild på mig" id="signImg">
+  <div class="speech-bubble" id="bubble">
+    Hej! Jag heter Viggo och söker nu LIA inom systemutveckling! 😃
+  </div>
+  <a href="/erfarenheter"><h1>Erfarenheter</h1></a>
+</div>
+
+
+   <%- include('partials/footer') %>
+
+   <script src="/javascripts/script.js?v=1.0"></script>
+
+
+</body>
+</html>
+

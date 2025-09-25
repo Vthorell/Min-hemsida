@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om-mig</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+  <%- include('partials/header') %>
+
+  <main>
+    <a href="/"><h1 class="namn">Viggo Thorell</h1></a>
+  </main>
+
+  <h2 class="om-mig">OM MIG</h2>
+
+  <hr>
+
+  <div class="bild-container">
+    <img class="bild" src="images/viggo.jpg" alt="bild av mig">
+  </div>
+
+  <div class="om-mig-text">
+    <p>
+      Jag är en aktiv och driven kille som idrottar mycket, något som har gett mig goda erfarenheter av både ledarskap och lagarbete. Jag trivs bra med att arbeta i grupp och tar gärna ansvar när det behövs.
+    </p>
+    <br>
+    <p>
+      Som person är jag nyfiken, social och alltid positiv, vilket gör att jag snabbt anpassar mig till nya situationer och samarbeten. Jag ser utmaningar som möjligheter att utvecklas och gillar att lösa problem på ett strukturerat sätt.
+    </p>
+    <br>
+    <p>
+      Dessutom är jag pålitlig, noggrann och värderar att hålla tider högt. Drivkraften att skapa och bidra med nya idéer är något som motiverar mig i allt jag gör.
+    </p>
+  </div>
+
+  <%- include('partials/footer') %>
+
+  <script src="/javascripts/script.js"></script>
+</body>
+</html>
