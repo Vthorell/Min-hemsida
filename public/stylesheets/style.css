@@ -341,3 +341,157 @@ hr {
     padding: 0 80px;
   }
 }
+
+/* ===========================
+   📱 MOBILER (max 640px)
+   =========================== */
+@media (max-width: 640px) {
+  body, html {
+    padding: 0 10px;
+  }
+
+  .namn {
+    font-size: 1.8rem;
+    margin-left: 10px;
+  }
+
+  .sign-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .speech-bubble {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 15px;
+  }
+
+  .plugga-container, .glass-container,
+  .truck-container, .aristo-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .plugga, .glass, .truck, .aristo {
+    max-width: 80%;
+  }
+
+  .plugga-text, .glass-text,
+  .truck-text, .aristo-text {
+    font-size: 1.2rem;
+    padding: 0 10px;
+  }
+
+  .om-mig-text {
+    padding: 0 20px;
+  }
+
+  .projekt {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+  h2.erfarenheter {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 20px;
+  }
+
+  .plugga-container, .glass-container,
+  .truck-container, .aristo-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .plugga, .glass, .truck, .aristo {
+    width: 80%;           
+    height: auto;         
+    max-height: 250px;    
+    object-fit: cover;    
+    border-radius: 15px;
+  }
+
+  .plugga-text, .glass-text,
+  .truck-text, .aristo-text {
+    font-size: 1.2rem;
+    padding: 0 15px;
+  }
+}
+
+/* ===========================
+   📲 SURFPLATTOR (641px–1024px)
+   =========================== */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .namn {
+    font-size: 2.2rem;
+    margin-left: 20px;
+  }
+
+  .plugga-text, .glass-text,
+  .truck-text, .aristo-text,
+  .om-mig-text p {
+    font-size: 1.3rem;
+  }
+
+  .sign-container {
+    flex-direction: row;
+    gap: 50px;
+  }
+
+  .projekt {
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+  }
+}
+
+/* ===========================
+   💻 LAPTOP (1025px–1440px)
+   =========================== */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .namn {
+    font-size: 2.5rem;
+  }
+
+  .projekt {
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+  }
+
+  .om-mig-text p {
+    font-size: 1.4rem;
+  }
+}
+
+/* ===========================
+   🖥️ STORA SKÄRMAR (1441px+)
+   =========================== */
+@media (min-width: 1441px) {
+  body {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .namn {
+    font-size: 3rem;
+  }
+
+  .om-mig-text p {
+    font-size: 1.6rem;
+  }
+
+  .projekt-container {
+    gap: 30px;
+  }
+
+  .projekt img {
+    border-radius: 20px;
+  }
+}
