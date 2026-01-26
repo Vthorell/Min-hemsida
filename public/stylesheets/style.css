@@ -495,3 +495,111 @@ hr {
     border-radius: 20px;
   }
 }
+/* ===================== DARK MODE (SNYGG & ENHETLIG) ===================== */
+
+html.dark,
+body.dark {
+  background-color: #0f172a;
+color: #f1f5f9;    
+          }          /* nästan vit text */
+
+/* all text */
+body.dark p,
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6,
+body.dark span,
+body.dark li,
+body.dark label {
+  color: #f1f5f9;
+}
+
+/* länkar */
+body.dark a {
+  color: #93c5fd;
+}
+
+/* header + footer */
+body.dark header,
+body.dark footer {
+  background-color: #020617;
+}
+
+/* alla större containers */
+body.dark .sign-container,
+body.dark .veta-mer-container,
+body.dark .contact-form,
+body.dark .projekt,
+body.dark .bild-container,
+body.dark .plugga-container,
+body.dark .glass-container,
+body.dark .truck-container,
+body.dark .aristo-container {
+  background-color: #020617;
+  border-color: #334155;
+}
+
+/* speech bubble */
+body.dark .speech-bubble {
+  background: linear-gradient(135deg, #1e293b, #020617);
+  color: #f8fafc;
+}
+
+/* knappar */
+body.dark button {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+/* darkmode-knappen */
+body.dark #darkModeBtn {
+  background: linear-gradient(135deg, #1e293b, #020617);
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+/* input & textarea */
+body.dark input,
+body.dark textarea {
+  background-color: #020617;
+  color: #f8fafc;
+  border: 1px solid #334155;
+}
+
+/* hr linjer */
+body.dark hr {
+  background-color: #334155;
+  border-color: #334155;
+}
+
+/* icons */
+body.dark .footer-icon {
+  color: #f8fafc;
+}
+
+/* fullscreen menu */
+body.dark #fullscreenMenu {
+  background-color: rgba(2, 6, 23, 0.97);
+}
+
+#darkModeBtn {
+  position: fixed;   /* gör den sticky */
+  top: 20px;         /* uppe */
+  right: 20px;       /* höger */
+  z-index: 1002;     /* över meny */
+  font-size: 22px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+}
+
+body.dark #darkModeBtn {
+  background: linear-gradient(135deg, #333, #111);
+  border-color: #666;
+  color: white;
+}
