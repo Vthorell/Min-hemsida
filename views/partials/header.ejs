@@ -1,14 +1,28 @@
-<header>
-  <meta name="navigation header för att navigera mellan sidor på viggo-thorell.se"/>
-  <div id="progress-container">
-  <div id="progress-bar">
-    <span id="progress-text"></span>
+<header class="site-header" role="banner">
+  <div id="progress-container" aria-hidden="false">
+    <div
+      id="progress-bar"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    >
+      <span id="progress-text" aria-live="polite"></span>
+    </div>
   </div>
-</div>
-  <button id="hamburgerBtn">☰</button>
 
-  <div id="fullscreenMenu" class="hidden">
-    <button id="closeBtn">×</button>
+  <button
+    id="hamburgerBtn"
+    type="button"
+    aria-label="Öppna huvudmenyn"
+    aria-expanded="false"
+    aria-controls="fullscreenMenu"
+  >
+    ☰
+  </button>
+
+  <nav id="fullscreenMenu" class="hidden" aria-hidden="true" aria-label="Huvudmeny">
+    <button id="closeBtn" type="button" aria-label="Stäng menyn">×</button>
     <ul>
       <li><a href="/om-mig">Om mig</a></li>
       <li><a href="/erfarenheter">Erfarenheter</a></li>
@@ -16,7 +30,14 @@
       <li><a href="/lia">LIA</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
     </ul>
-  </div>
+  </nav>
 
-  <button id="darkModeBtn">🌙</button>
+  <button
+    id="darkModeBtn"
+    type="button"
+    aria-label="Växla mörkt läge"
+    aria-pressed="false"
+  >
+    🌙
+  </button>
 </header>

@@ -3,10 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viggo Thorell - Erfarenheter</title>
-  <meta name="Viggo Thorell - Erfarenheter. Se erfarenheter, projekt och kontaktinformation."/>
+  <title>Viggo Thorell – Erfarenheter</title>
+  <meta name="description" content="Erfarenheter och bakgrund inom studier, praktik och arbete som formar mig som webbutvecklare.">
+  <link rel="canonical" href="https://viggo-thorell.se/erfarenheter">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Viggo Thorell – Erfarenheter">
+  <meta property="og:description" content="Erfarenheter och bakgrund inom studier, praktik och arbete som formar mig som webbutvecklare.">
+  <meta property="og:url" content="https://viggo-thorell.se/erfarenheter">
+  <meta property="og:image" content="https://viggo-thorell.se/images/viggo.jpg">
+  <meta property="og:site_name" content="Viggo Thorell">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Viggo Thorell – Erfarenheter">
+  <meta name="twitter:description" content="Erfarenheter och bakgrund inom studier, praktik och arbete som formar mig som webbutvecklare.">
+  <meta name="twitter:image" content="https://viggo-thorell.se/images/viggo.jpg">
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <%- include('partials/schema-person') %>
+  <%- include('partials/schema-website') %>
+  <%- include('partials/schema-experience') %>
 </head>
 <body>
 
@@ -53,7 +68,7 @@
 
   <%- include('partials/footer') %>
 
-  <script src="/javascripts/script.js"></script>
+  <script src="/javascripts/script.js" defer></script>
   <script src="/javascripts/progress.js" defer></script>
 
 </body>

@@ -1,62 +1,106 @@
 // ================= HAMBURGER MENU =================
-const hamburgerBtn = document.getElementById("hamburgerBtn");
-const fullscreenMenu = document.getElementById("fullscreenMenu");
-const closeBtn = document.getElementById("closeBtn");
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const fullscreenMenu = document.getElementById('fullscreenMenu');
+const closeBtn = document.getElementById('closeBtn');
 
-if (fullscreenMenu) {
-  fullscreenMenu.classList.add("hidden");
-}
+const toggleMenu = (shouldOpen) => {
+  if (!(fullscreenMenu && hamburgerBtn)) {
+    return;
+  }
+
+  if (shouldOpen) {
+    fullscreenMenu.classList.remove('hidden');
+    fullscreenMenu.setAttribute('aria-hidden', 'false');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    const firstLink = fullscreenMenu.querySelector('a');
+    if (firstLink) {
+      firstLink.focus();
+    }
+  } else {
+    fullscreenMenu.classList.add('hidden');
+    fullscreenMenu.setAttribute('aria-hidden', 'true');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    hamburgerBtn.focus();
+  }
+};
 
 if (hamburgerBtn && fullscreenMenu) {
-  hamburgerBtn.addEventListener("click", () => {
-    fullscreenMenu.classList.remove("hidden");
-  });
+  hamburgerBtn.addEventListener('click', () => toggleMenu(true));
 }
 
 if (closeBtn && fullscreenMenu) {
-  closeBtn.addEventListener("click", () => {
-    fullscreenMenu.classList.add("hidden");
+  closeBtn.addEventListener('click', () => toggleMenu(false));
+}
+
+if (fullscreenMenu) {
+  fullscreenMenu.addEventListener('click', (event) => {
+    if (event.target.matches('a')) {
+      toggleMenu(false);
+    }
   });
 }
 
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && fullscreenMenu && !fullscreenMenu.classList.contains('hidden')) {
+    toggleMenu(false);
+  }
+});
 
 // ================= DARK MODE =================
-// ================= DARK MODE (med minne + ikon) =================
-const darkModeBtn = document.getElementById("darkModeBtn");
+const darkModeBtn = document.getElementById('darkModeBtn');
+const prefersDarkScheme = window.matchMedia
+  ? window.matchMedia('(prefers-color-scheme: dark)').matches
+  : false;
 
-// kolla om darkmode redan är sparat
-if (localStorage.getItem("darkmode") === "on") {
-  document.body.classList.add("dark");
-  document.documentElement.classList.add("dark");
-  darkModeBtn.innerHTML = "☀️"; // rätt ikon vid start
-} else {
-  darkModeBtn.innerHTML = "🌙";
-}
+const safeStorage = (() => {
+  try {
+    const storage = window.localStorage;
+    const testKey = '__storage_test__';
+    storage.setItem(testKey, testKey);
+    storage.removeItem(testKey);
+    return storage;
+  } catch (_) {
+    return null;
+  }
+})();
 
-if (darkModeBtn) {
-  darkModeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    document.documentElement.classList.toggle("dark");
+const setDarkModeState = (isDark) => {
+  document.body.classList.toggle('dark', isDark);
+  document.documentElement.classList.toggle('dark', isDark);
+  if (darkModeBtn) {
+    darkModeBtn.textContent = isDark ? '☀️' : '🌙';
+    darkModeBtn.setAttribute('aria-pressed', String(isDark));
+  }
+  if (safeStorage) {
+    safeStorage.setItem('darkmode', isDark ? 'on' : 'off');
+  }
+};
 
-    const isDark = document.body.classList.contains("dark");
+const initializeDarkMode = () => {
+  if (!darkModeBtn) {
+    return;
+  }
 
-    // spara läge
-    localStorage.setItem("darkmode", isDark ? "on" : "off");
+  const storedPreference = safeStorage ? safeStorage.getItem('darkmode') : null;
+  const shouldEnableDarkMode =
+    storedPreference === 'on' || (storedPreference === null && prefersDarkScheme);
 
-    // byt ikon
-    darkModeBtn.innerHTML = isDark ? "☀️" : "🌙";
+  setDarkModeState(shouldEnableDarkMode);
+
+  darkModeBtn.addEventListener('click', () => {
+    const currentlyDark = document.body.classList.contains('dark');
+    setDarkModeState(!currentlyDark);
   });
-}
+};
 
-
-
+initializeDarkMode();
 
 // ================= SPEECH BUBBLE =================
-const signImg = document.getElementById("signImg");
-const bubble = document.getElementById("bubble");
+const signImg = document.getElementById('signImg');
+const bubble = document.getElementById('bubble');
 
 if (signImg && bubble) {
-  signImg.addEventListener("click", () => {
-    bubble.classList.toggle("show");
+  signImg.addEventListener('click', () => {
+    bubble.classList.toggle('show');
   });
 }

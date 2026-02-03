@@ -3,10 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viggo Thorell - Projekt</title>
-  <meta name="Viggo Thorell - Projekt. Se projekt, erfarenheter och kontaktinformation."/>
+  <title>Viggo Thorell – Projekt</title>
+  <meta name="description" content="Se projekt och case från Viggo Thorell inom webbutveckling, frontend och UX.">
+  <link rel="canonical" href="https://viggo-thorell.se/projekt">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Viggo Thorell – Projekt">
+  <meta property="og:description" content="Se projekt och case från Viggo Thorell inom webbutveckling, frontend och UX.">
+  <meta property="og:url" content="https://viggo-thorell.se/projekt">
+  <meta property="og:image" content="https://viggo-thorell.se/images/viggo.jpg">
+  <meta property="og:site_name" content="Viggo Thorell">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Viggo Thorell – Projekt">
+  <meta name="twitter:description" content="Se projekt och case från Viggo Thorell inom webbutveckling, frontend och UX.">
+  <meta name="twitter:image" content="https://viggo-thorell.se/images/viggo.jpg">
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <%- include('partials/schema-person') %>
+  <%- include('partials/schema-website') %>
+  <%- include('partials/schema-projects') %>
 </head>
 <body>
 
@@ -22,9 +37,9 @@
     <h1>Kommer Snart</h1>
 
     <div class="projekt-container">
-    <div class="projekt"><img src="images/capstore.webp" alt="Capstore av Viggo Thorell"></div>
-      <div class="projekt"><img src="images/epic.webp" alt="Epic av Viggo Thorell"></div>
-      <div class="projekt"><img src="images/fashion.webp" alt="Freaky av Viggo Thorell"></div>
+    <div class="projekt"><img src="/images/capstore.webp" alt="Capstore av Viggo Thorell"></div>
+      <div class="projekt"><img src="/images/epic.webp" alt="Epic av Viggo Thorell"></div>
+      <div class="projekt"><img src="/images/fashion.webp" alt="Freaky av Viggo Thorell"></div>
     </div>
   </section>
 </main>
@@ -32,8 +47,8 @@
 
   <%- include('partials/footer') %>
 
-  <script src="/javascripts/script.js"></script>
- <script src="/javascripts/progress.js" defer></script>
+  <script src="/javascripts/script.js" defer></script>
+  <script src="/javascripts/progress.js" defer></script>
 
 </body>
 </html>

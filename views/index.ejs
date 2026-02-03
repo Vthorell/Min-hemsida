@@ -4,11 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Viggo Thorell – Webbutvecklare & Portfolio</title>
-  <meta name="Viggo Thorell – Webbutvecklare baserad i Stockholm. Se portfolio, projekt och kontaktinformation. "/>
+  <meta name="description" content="Viggo Thorell är webbutvecklare i Stockholm. Se portfolio, projekt och kontaktinformation.">
+  <link rel="canonical" href="https://viggo-thorell.se/">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Viggo Thorell – Webbutvecklare & Portfolio">
+  <meta property="og:description" content="Viggo Thorell är webbutvecklare i Stockholm. Se portfolio, projekt och kontaktinformation.">
+  <meta property="og:url" content="https://viggo-thorell.se/">
+  <meta property="og:image" content="https://viggo-thorell.se/images/viggo.jpg">
+  <meta property="og:site_name" content="Viggo Thorell">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Viggo Thorell – Webbutvecklare & Portfolio">
+  <meta name="twitter:description" content="Viggo Thorell är webbutvecklare i Stockholm. Se portfolio, projekt och kontaktinformation.">
+  <meta name="twitter:image" content="https://viggo-thorell.se/images/viggo.jpg">
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <%- include('partials/schema-person') %>
-<%- include('partials/schema-website') %>
+  <%- include('partials/schema-website') %>
+  <%- include('partials/schema-home') %>
 
 </head>
 
@@ -38,8 +51,8 @@
   <%- include('partials/footer') %>
 
   <!-- JS sist i body -->
-  <script src="/javascripts/script.js?v=1.0"></script>
-   <script src="/javascripts/progress.js" defer></script>
+  <script src="/javascripts/script.js" defer></script>
+  <script src="/javascripts/progress.js" defer></script>
 
 </body>
 </html>
