@@ -4,8 +4,6 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const { body, validationResult } = require('express-validator');
 
 const indexRouter = require('./routes/index');
 
@@ -60,7 +58,7 @@ app.use(
 );
 
 const stripHtml = (value = '') => value.replace(/<[^>]*>?/gm, '');
-const sanitizeLineBreaks = (value = '') => value.replace(/(\r\n|\n|\r)/g, ' ').trim();
+const sanitizeWhitespace = (value = '') => value.replace(/\s+/g, ' ').trim();
 const escapeHtml = (value = '') =>
   value
     .replace(/&/g, '&amp;')
@@ -75,104 +73,85 @@ const buildOldInput = (formData = {}) => ({
   message: formData.message || '',
 });
 
-const renderContactResponse = (res, { statusCode = 200, type = null, message = null, oldInput = {} } = {}) =>
+const renderContactResponse = (
+  res,
+  { statusCode = 200, type = null, message = null, oldInput = {} } = {}
+) =>
   res.status(statusCode).render('kontakt', {
     formStatus: type && message ? { type, message } : null,
     oldInput: buildOldInput(oldInput),
   });
 
-const contactValidationRules = [
-  body('name')
-    .trim()
-    .isLength({ min: 2, max: 80 })
-    .withMessage('Namnet måste vara mellan 2 och 80 tecken.')
-    .matches(/^[\p{L}\p{M}\s.'-]+$/u)
-    .withMessage('Namnet får bara innehålla bokstäver.')
-    .customSanitizer((value) => sanitizeLineBreaks(stripHtml(value))),
-  body('email')
-    .trim()
-    .isEmail()
-    .withMessage('Ange en giltig e-postadress.')
-    .custom((value) => {
-      if (/\r|\n/.test(value)) {
-        throw new Error('Ogiltig e-postadress.');
-      }
-      return true;
-    })
-    .normalizeEmail({ gmail_remove_dots: false }),
-  body('message')
-    .trim()
-    .isLength({ min: 10, max: 2000 })
-    .withMessage('Meddelandet måste vara mellan 10 och 2000 tecken.')
-    .customSanitizer((value) => stripHtml(value).replace(/\r\n/g, '\n')),
-];
+const isValidEmail = (value = '') => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+const isValidName = (value = '') => /^[\p{L}\p{M}\s.'-]+$/u.test(value);
 
-const contactRateWindowMs = 15 * 60 * 1000;
-const contactRateLimit = 5;
+const smtpUser = process.env.SMTP_USER;
+const smtpPass = process.env.SMTP_PASS;
+const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+const smtpPort = Number(process.env.SMTP_PORT) || 465;
+const smtpSecure =
+  typeof process.env.SMTP_SECURE !== 'undefined'
+    ? process.env.SMTP_SECURE === 'true'
+    : smtpPort === 465;
+const contactRecipient = process.env.CONTACT_RECIPIENT || smtpUser || '';
 
-const contactLimiter = rateLimit({
-  windowMs: contactRateWindowMs,
-  max: contactRateLimit,
-  standardHeaders: true,
-  legacyHeaders: false,
-  handler: (req, res) => {
-    res.setHeader('Retry-After', String(Math.ceil(contactRateWindowMs / 1000)));
-    return renderContactResponse(res, {
-      statusCode: 429,
-      type: 'error',
-      message: 'Du har skickat för många meddelanden. Försök igen om en stund.',
-      oldInput: req.body,
-    });
-  },
-  keyGenerator: (req) => req.ip,
-});
-
-const smtpConfig = {
-  user: 'viggotho@gmail.com',
-  pass: 'vgca yeib xyjm kfdl',
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-};
-
-const contactRecipient = 'viggotho@gmail.com';
-
-const mailTransporter = nodemailer.createTransport({
-  host: smtpConfig.host,
-  port: smtpConfig.port,
-  secure: smtpConfig.secure,
-  auth: {
-    user: smtpConfig.user,
-    pass: smtpConfig.pass,
-  },
-});
-
-mailTransporter
-  .verify()
-  .then(() => {
-    if (!isProduction) {
-      console.log('Mailtransporter är konfigurerad och redo.');
-    }
-  })
-  .catch((err) => {
-    console.warn('Kunde inte verifiera mailtransporter:', err.message);
+let mailTransporter = null;
+if (smtpUser && smtpPass) {
+  mailTransporter = nodemailer.createTransport({
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpSecure,
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
+    },
   });
+
+  mailTransporter
+    .verify()
+    .then(() => {
+      if (!isProduction) {
+        console.log('Mailtransporter är konfigurerad och redo.');
+      }
+    })
+    .catch((err) => {
+      console.warn('Kunde inte verifiera mailtransporter:', err.message);
+    });
+} else {
+  console.warn('SMTP_USER och/eller SMTP_PASS saknas. Kontaktformuläret kan inte skicka e-post.');
+}
 
 app.use('/', indexRouter);
 
-app.post('/send-email', contactLimiter, contactValidationRules, async (req, res) => {
-  const { name = '', email = '', message = '' } = req.body || {};
-  const validationErrors = validationResult(req);
-  const errors = validationErrors.isEmpty()
-    ? []
-    : validationErrors.array().map((error) => error.msg);
+app.post('/send-email', async (req, res) => {
+  const rawName = req.body?.name ?? '';
+  const rawEmail = req.body?.email ?? '';
+  const rawMessage = req.body?.message ?? '';
+
+  const cleanedName = sanitizeWhitespace(stripHtml(rawName)).slice(0, 80);
+  const cleanedEmail = rawEmail.trim();
+  const cleanedMessage = stripHtml(rawMessage).trim().slice(0, 2000);
+
+  const errors = [];
+
+  if (cleanedName.length < 2 || cleanedName.length > 80 || !isValidName(cleanedName)) {
+    errors.push('Ange ett giltigt namn (2–80 tecken, endast bokstäver).');
+  }
+
+  if (!isValidEmail(cleanedEmail)) {
+    errors.push('Ange en giltig e-postadress.');
+  }
+
+  if (cleanedMessage.length < 5) {
+    errors.push('Skriv ett meddelande på minst 5 tecken.');
+  }
 
   if (errors.length) {
     return renderContactResponse(res, {
       statusCode: 400,
       type: 'error',
       message: errors.join(' '),
-      oldInput: { name, email, message },
+      oldInput: { name: cleanedName, email: cleanedEmail, message: cleanedMessage },
     });
   }
 
@@ -181,24 +160,23 @@ app.post('/send-email', contactLimiter, contactValidationRules, async (req, res)
       statusCode: 503,
       type: 'error',
       message: 'Kontaktformuläret är tillfälligt nere. Försök igen senare eller maila mig direkt.',
-      oldInput: { name, email, message },
+      oldInput: { name: cleanedName, email: cleanedEmail, message: cleanedMessage },
     });
   }
 
-  const safeName = sanitizeLineBreaks(name);
-  const safeEmail = email;
-  const safeMessage = stripHtml(message).trim();
+  const normalizedMessage = cleanedMessage.replace(/\r\n|\r/g, '\n');
+  const fromAddress = smtpUser || contactRecipient;
 
   try {
     await mailTransporter.sendMail({
-      from: `"Viggo Thorell Portfolio" <${smtpUser}>`,
-      replyTo: safeEmail,
+      from: fromAddress ? `"Viggo Thorell Portfolio" <${fromAddress}>` : undefined,
+      replyTo: cleanedEmail,
       to: contactRecipient,
-      subject: `Nytt meddelande från ${safeName}`,
-      text: `Namn: ${safeName}\nE-post: ${safeEmail}\n\n${safeMessage}`,
-      html: `<p><strong>Namn:</strong> ${escapeHtml(safeName)}</p>
-             <p><strong>E-post:</strong> ${escapeHtml(safeEmail)}</p>
-             <p><strong>Meddelande:</strong><br>${escapeHtml(safeMessage).replace(/\n/g, '<br>')}</p>`,
+      subject: `Nytt meddelande från ${cleanedName}`,
+      text: `Namn: ${cleanedName}\nE-post: ${cleanedEmail}\n\n${normalizedMessage}`,
+      html: `<p><strong>Namn:</strong> ${escapeHtml(cleanedName)}</p>
+             <p><strong>E-post:</strong> ${escapeHtml(cleanedEmail)}</p>
+             <p><strong>Meddelande:</strong><br>${escapeHtml(normalizedMessage).replace(/\n/g, '<br>')}</p>`,
     });
 
     return renderContactResponse(res, {
@@ -212,7 +190,7 @@ app.post('/send-email', contactLimiter, contactValidationRules, async (req, res)
       statusCode: 500,
       type: 'error',
       message: 'Hoppsan! Något gick fel. Försök igen senare.',
-      oldInput: { name, email, message },
+      oldInput: { name: cleanedName, email: cleanedEmail, message: cleanedMessage },
     });
   }
 });
