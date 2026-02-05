@@ -404,10 +404,12 @@ hr {
 }
 .plugga, .glass,
 .truck, .aristo {
-  width: 350px;
-  height: 250px;
-  object-fit: cover;
+  width: 260px;
+  height: 195px;
+  object-fit: contain;
   flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
 }
 .plugga-text, .glass-text {
   font-size: 1.5rem;
@@ -545,9 +547,9 @@ hr {
   }
 
   .plugga, .glass, .truck, .aristo {
-    width: min(80vw, 350px);
-    height: 250px;
-    object-fit: cover;
+    width: min(80vw, 260px);
+    height: 195px;
+    object-fit: contain;
   }
 
   .plugga-text, .glass-text,
@@ -581,9 +583,9 @@ hr {
   }
 
   .plugga, .glass, .truck, .aristo {
-    width: min(80vw, 350px);
-    height: 250px;
-    object-fit: cover;
+    width: min(80vw, 260px);
+    height: 195px;
+    object-fit: contain;
     border-radius: 15px;
   }
 
