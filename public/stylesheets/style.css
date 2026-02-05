@@ -422,6 +422,10 @@ hr {
 .truck, .aristo{
   order: 2;
 }
+.aristo {
+  max-width: 220px;
+  margin-left: auto;
+}
 .truck-text, .aristo-text{
   font-size: 1.5rem;
   order: 1;
