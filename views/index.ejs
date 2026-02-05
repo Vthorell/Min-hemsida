@@ -15,15 +15,16 @@
   <meta property="og:title" content="Viggo Thorell | Webbutvecklare Stockholm – Portfolio & Kontakt">
   <meta property="og:description" content="Viggo Thorell – webbutvecklare i Stockholm. Officiell sida med portfolio, projekt och kontakt. Kontakta Viggo Thorell direkt.">
   <meta property="og:url" content="https://viggo-thorell.se/">
-  <meta property="og:image" content="https://viggo-thorell.se/images/viggo.jpg">
+  <meta property="og:image" content="https://viggo-thorell.se/images/viggo.webp">
   <meta property="og:site_name" content="Viggo Thorell">
   <meta property="og:locale" content="sv_SE">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Viggo Thorell | Webbutvecklare Stockholm – Portfolio & Kontakt">
   <meta name="twitter:description" content="Viggo Thorell – webbutvecklare i Stockholm. Officiell sida med portfolio, projekt och kontakt.">
-  <meta name="twitter:image" content="https://viggo-thorell.se/images/viggo.jpg">
+  <meta name="twitter:image" content="https://viggo-thorell.se/images/viggo.webp">
   <link rel="stylesheet" href="/stylesheets/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"></noscript>
   <%- include('partials/schema-person') %>
   <%- include('partials/schema-website') %>
   <%- include('partials/schema-home') %>
@@ -43,9 +44,11 @@
     <div class="sign-wrapper">
       <img 
         class="sign" 
-        src="/images/sign.png" 
+        src="/images/sign.webp" 
         alt="ai bild på Viggo Thorell" 
         id="signImg"
+        width="350"
+        height="525"
       >
       <div class="speech-bubble" id="bubble">
         Hej! Jag heter Viggo och gör just nu LIA hos Partnersense AB! 😃

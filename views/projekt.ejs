@@ -11,14 +11,15 @@
   <meta property="og:title" content="Viggo Thorell – Projekt">
   <meta property="og:description" content="Se projekt och case från Viggo Thorell inom webbutveckling, frontend och UX.">
   <meta property="og:url" content="https://viggo-thorell.se/projekt">
-  <meta property="og:image" content="https://viggo-thorell.se/images/viggo.jpg">
+  <meta property="og:image" content="https://viggo-thorell.se/images/viggo.webp">
   <meta property="og:site_name" content="Viggo Thorell">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Viggo Thorell – Projekt">
   <meta name="twitter:description" content="Se projekt och case från Viggo Thorell inom webbutveckling, frontend och UX.">
-  <meta name="twitter:image" content="https://viggo-thorell.se/images/viggo.jpg">
+  <meta name="twitter:image" content="https://viggo-thorell.se/images/viggo.webp">
   <link rel="stylesheet" href="/stylesheets/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"></noscript>
   <%- include('partials/schema-person') %>
   <%- include('partials/schema-website') %>
   <%- include('partials/schema-projects') %>
@@ -37,9 +38,9 @@
     <h1>Kommer Snart</h1>
 
     <div class="projekt-container">
-    <div class="projekt"><img src="/images/capstore.webp" alt="Capstore av Viggo Thorell"></div>
-      <div class="projekt"><img src="/images/epic.webp" alt="Epic av Viggo Thorell"></div>
-      <div class="projekt"><img src="/images/fashion.webp" alt="Freaky av Viggo Thorell"></div>
+    <div class="projekt"><img src="/images/capstore.webp" alt="Capstore av Viggo Thorell" width="400" height="400" loading="lazy"></div>
+      <div class="projekt"><img src="/images/epic.webp" alt="Epic av Viggo Thorell" width="400" height="400" loading="lazy"></div>
+      <div class="projekt"><img src="/images/fashion.webp" alt="Freaky av Viggo Thorell" width="400" height="400" loading="lazy"></div>
     </div>
   </section>
 </main>

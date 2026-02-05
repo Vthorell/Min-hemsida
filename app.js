@@ -45,14 +45,26 @@ app.use(logger(isProduction ? 'combined' : 'dev'));
 app.use(express.json({ limit: '25kb' }));
 app.use(express.urlencoded({ extended: false, limit: '25kb' }));
 
+const oneYear = 31536000;
+
 app.use(
   express.static(path.join(__dirname, 'public'), {
-    maxAge: isProduction ? '7d' : 0,
-    setHeaders(res) {
-      res.setHeader(
-        'Cache-Control',
-        isProduction ? 'public, max-age=604800, immutable' : 'public, max-age=0, must-revalidate'
-      );
+    maxAge: isProduction ? oneYear : 0,
+    setHeaders(res, filePath) {
+      if (!isProduction) {
+        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        return;
+      }
+      const ext = path.extname(filePath).toLowerCase();
+      const longCache = 'public, max-age=31536000, immutable';
+      const mediumCache = 'public, max-age=2592000, immutable';
+      if (['.webp', '.avif', '.jpg', '.jpeg', '.png', '.gif', '.ico'].includes(ext)) {
+        res.setHeader('Cache-Control', longCache);
+      } else if (['.css', '.js'].includes(ext)) {
+        res.setHeader('Cache-Control', mediumCache);
+      } else {
+        res.setHeader('Cache-Control', longCache);
+      }
     },
   })
 );
