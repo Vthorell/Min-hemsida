@@ -84,6 +84,87 @@ header {
   margin-left: 50px;
   color: black;
 }
+
+.intro-text {
+  margin: 1rem 50px 2rem;
+  max-width: 42rem;
+  color: black;
+  line-height: 1.5;
+}
+
+.intro-text p {
+  margin: 0;
+}
+
+.faq-section {
+  margin: 3rem 50px 5rem;
+  max-width: 42rem;
+  color: black;
+}
+
+.faq-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: black;
+  background: none;
+  border: none;
+  border-bottom: 2px solid currentColor;
+  cursor: pointer;
+  text-align: left;
+}
+
+.faq-accordion-trigger:hover {
+  opacity: 0.85;
+}
+
+.faq-accordion-icon {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.faq-accordion-trigger.faq-open .faq-accordion-icon {
+  transform: rotate(-180deg);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease;
+}
+
+.faq-list.faq-panel-open {
+  max-height: 80vh;
+  opacity: 1;
+  padding-top: 1.25rem;
+}
+
+.faq-item h3 {
+  font-size: 1rem;
+  margin: 0 0 0.35rem;
+}
+
+.faq-item p {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.faq-item a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .om-mig {
   margin-top: 100px;
 }
@@ -388,6 +469,12 @@ hr {
   .namn {
     font-size: 1.8rem;
     margin-left: 10px;
+  }
+
+  .intro-text,
+  .faq-section {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .sign-container {

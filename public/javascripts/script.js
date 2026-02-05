@@ -104,3 +104,17 @@ if (signImg && bubble) {
     bubble.classList.toggle('show');
   });
 }
+
+// ================= FAQ ACCORDION =================
+const faqTrigger = document.getElementById('faqAccordionTrigger');
+const faqPanel = document.getElementById('faqAccordionPanel');
+
+if (faqTrigger && faqPanel) {
+  faqTrigger.addEventListener('click', () => {
+    const isOpen = faqTrigger.getAttribute('aria-expanded') === 'true';
+    faqTrigger.setAttribute('aria-expanded', !isOpen);
+    faqPanel.setAttribute('aria-hidden', isOpen);
+    faqPanel.classList.toggle('faq-panel-open', !isOpen);
+    faqTrigger.classList.toggle('faq-open', !isOpen);
+  });
+}
