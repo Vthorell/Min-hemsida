@@ -110,11 +110,19 @@ const faqTrigger = document.getElementById('faqAccordionTrigger');
 const faqPanel = document.getElementById('faqAccordionPanel');
 
 if (faqTrigger && faqPanel) {
+  const faqLinks = () => faqPanel.querySelectorAll('a[href]');
+  const setFaqLinksTabindex = (canFocus) => {
+    faqLinks().forEach((el) => el.setAttribute('tabindex', canFocus ? '0' : '-1'));
+  };
+
+  setFaqLinksTabindex(false);
+
   faqTrigger.addEventListener('click', () => {
     const isOpen = faqTrigger.getAttribute('aria-expanded') === 'true';
     faqTrigger.setAttribute('aria-expanded', !isOpen);
     faqPanel.setAttribute('aria-hidden', isOpen);
     faqPanel.classList.toggle('faq-panel-open', !isOpen);
     faqTrigger.classList.toggle('faq-open', !isOpen);
+    setFaqLinksTabindex(!isOpen);
   });
 }

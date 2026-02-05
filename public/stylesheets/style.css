@@ -23,6 +23,12 @@ header {
   left: 0;
   transform: translate(20px, 50px);
   z-index: 1001;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #fullscreenMenu {
@@ -60,6 +66,12 @@ header {
   border: none;
   color: white;
   cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #fullscreenMenu ul {
@@ -109,6 +121,7 @@ header {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  min-height: 44px;
   padding: 0.75rem 0;
   font-size: 1.25rem;
   font-weight: 700;

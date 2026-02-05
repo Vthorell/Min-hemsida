@@ -4,9 +4,7 @@ const pages = ["index", "om-mig", "erfarenheter", "projekt", "lia", "kontakt"];
 const progressBar = document.getElementById("progress-bar");
 const progressText = document.getElementById("progress-text");
 
-if (!progressBar || !progressText) {
-  console.warn("Progress elements not found in header");
-} else {
+if (progressBar && progressText) {
   // Get current page from URL
   function getCurrentPage() {
     const path = window.location.pathname;
